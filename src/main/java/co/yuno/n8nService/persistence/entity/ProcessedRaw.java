@@ -25,6 +25,7 @@ public class ProcessedRaw {
     }
 
     public ProcessedRaw(Integer id, Processed processed, RawTable rawTable) {
+
         this.id = id;
         this.processed = processed;
         this.rawTable = rawTable;

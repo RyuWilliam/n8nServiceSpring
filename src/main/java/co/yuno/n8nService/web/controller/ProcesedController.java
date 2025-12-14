@@ -3,6 +3,7 @@ package co.yuno.n8nService.web.controller;
 import co.yuno.n8nService.persistence.entity.Processed;
 import co.yuno.n8nService.persistence.enums.Phase;
 import co.yuno.n8nService.service.ProcesedService;
+import co.yuno.n8nService.web.dto.ProcessedUpdateRequest;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
@@ -86,5 +87,13 @@ public class ProcesedController {
     @GetMapping("/by-merchant")
     public List<Processed> getByMerchantIgnoreCase(@RequestParam String merchant) {
         return service.findByMerchantIgnoreCase(merchant);
+    }
+
+    @PatchMapping("/{id}")
+    public Processed partialUpdate(
+            @PathVariable Integer id,
+            @RequestBody ProcessedUpdateRequest request
+    ) {
+        return service.partialUpdate(id, request);
     }
 }
