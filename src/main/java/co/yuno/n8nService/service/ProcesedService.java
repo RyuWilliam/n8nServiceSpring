@@ -5,6 +5,7 @@ import co.yuno.n8nService.persistence.enums.Phase;
 import co.yuno.n8nService.persistence.repository.ProcesedRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -49,7 +50,7 @@ public class ProcesedService {
     }
 
     public List<Processed> findByPhase(Phase phase) {
-        return repository.findByPhase(phase);
+        return repository.findByPhaseNormalized(phase.name());
     }
 
     public List<Processed> findByProjectAndPhase(String projectName, Phase phase) {
@@ -62,6 +63,13 @@ public class ProcesedService {
 
     public long countByProjectName(String projectName) {
         return repository.countByProjectName(projectName);
+    }
+    public List<Processed> findByDateBetweenAndPhase(
+            LocalDateTime start,
+            LocalDateTime end,
+            Phase phase
+    ) {
+        return repository.findByLastUpdatedBetweenAndPhase(start, end, phase);
     }
 
     public long countByProjectNameAndPhase(String projectName, Phase phase) {

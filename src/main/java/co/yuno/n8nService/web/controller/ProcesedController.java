@@ -3,8 +3,10 @@ package co.yuno.n8nService.web.controller;
 import co.yuno.n8nService.persistence.entity.Processed;
 import co.yuno.n8nService.persistence.enums.Phase;
 import co.yuno.n8nService.service.ProcesedService;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -57,6 +59,16 @@ public class ProcesedController {
     @GetMapping("/by-phase")
     public List<Processed> getByPhase(@RequestParam Phase phase) {
         return service.findByPhase(phase);
+    }
+    @GetMapping("/by-date-and-phase")
+    public List<Processed> getByDateAndPhase(
+            @RequestParam
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime start,
+            @RequestParam
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime end,
+            @RequestParam Phase phase
+    ) {
+        return service.findByDateBetweenAndPhase(start, end, phase);
     }
 
     @GetMapping("/by-project-and-phase")

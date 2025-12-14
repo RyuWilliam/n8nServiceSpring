@@ -20,11 +20,20 @@ public interface ProcesedRepository extends JpaRepository<Processed, Integer> {
     // Historial de un proyecto descendente por id
     List<Processed> findByProjectNameOrderByIdProcessedDesc(String projectName);
 
-    // Buscar por fase
-    List<Processed> findByPhase(Phase phase);
+    // Java
+    @Query("SELECT p FROM processed p " +
+            "WHERE LOWER(TRIM(p.phase)) = LOWER(TRIM(:phase))")
+    List<Processed> findByPhaseNormalized(@Param("phase") String phase);
 
     // Proyecto + fase
     List<Processed> findByProjectNameAndPhase(String projectName, Phase phase);
+
+    List<Processed> findByLastUpdatedBetweenAndPhase(
+            LocalDateTime start,
+            LocalDateTime end,
+            Phase phase
+    );
+
 
     // Búsqueda de texto en summary
     List<Processed> findBySummaryContainingIgnoreCase(String text);
