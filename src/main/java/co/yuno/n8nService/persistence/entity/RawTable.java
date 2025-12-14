@@ -13,12 +13,11 @@ public class RawTable {
     private Integer id;
 
     @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private InfoSource source;
-
+    private String source;
 
     private String merchent;
 
+    @Column(length = 10000) // aumenta el límite
     private String snippet;
 
     private LocalDateTime date;
@@ -33,11 +32,11 @@ public class RawTable {
         this.id = id;
     }
 
-    public InfoSource getSource() {
+    public String getSource() {
         return source;
     }
 
-    public void setSource(InfoSource source) {
+    public void setSource(String source) {
         this.source = source;
     }
 

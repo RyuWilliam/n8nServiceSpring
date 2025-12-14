@@ -16,7 +16,7 @@ public class CorsConfig {
 
         config.setAllowCredentials(true);
         config.addAllowedOrigin("http://localhost:4200");
-        config.addAllowedHeader("*");  // Esto ya está bien
+        config.addAllowedHeader("*");
         config.addAllowedMethod("*");
         config.addExposedHeader("Authorization");
 

@@ -4,6 +4,7 @@ import co.yuno.n8nService.persistence.entity.RawTable;
 import co.yuno.n8nService.persistence.enums.InfoSource;
 import co.yuno.n8nService.service.RawTableService;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -20,8 +21,10 @@ public class RawTableController {
     }
 
     @GetMapping("/{id}")
-    public RawTable getById(@PathVariable Integer id) {
-        return service.findById(id);
+    public ResponseEntity<RawTable> getById(@PathVariable Integer id) {
+        RawTable rawTable = service.findById(id);
+
+        return ResponseEntity.ok(rawTable);
     }
 
     @GetMapping
