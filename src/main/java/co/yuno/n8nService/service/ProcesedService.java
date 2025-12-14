@@ -70,6 +70,6 @@ public class ProcesedService {
 
     // Nuevo: implementación de búsqueda por merchant ignore case
     public List<Processed> findByMerchantIgnoreCase(String merchant) {
-        return repository.findByMerchantIgnoreCase(merchant);
+        return repository.findByMerchantNormalized(merchant);
     }
 }

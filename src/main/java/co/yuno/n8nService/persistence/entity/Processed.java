@@ -1,6 +1,7 @@
 package co.yuno.n8nService.persistence.entity;
 
 import co.yuno.n8nService.persistence.enums.Phase;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -51,6 +52,7 @@ public class Processed {
 
     // NUEVO: relación con la entidad puente
     @OneToMany(mappedBy = "processed", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<ProcessedRaw> processedRaws;
 
     public Processed(Integer idProcessed, String summary, Phase phase, String projectName,

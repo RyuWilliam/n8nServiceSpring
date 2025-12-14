@@ -27,6 +27,17 @@ public class RawTable {
     @Column(length = 100)
     private String country;
 
+    public RawTable() {
+    }
+
+    public RawTable(Integer id, InfoSource source, String merchant, String snippet, LocalDateTime date, String country) {
+        this.id = id;
+        this.source = source;
+        this.merchant = merchant;
+        this.snippet = snippet;
+        this.date = date;
+        this.country = country;
+    }
     // ELIMINADO: referencia directa a Processed
     // @ManyToOne
     // @JoinColumn(name = "processed_id")

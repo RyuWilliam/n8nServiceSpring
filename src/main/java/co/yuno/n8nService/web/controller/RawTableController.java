@@ -58,9 +58,9 @@ public class RawTableController {
         return service.findByCountry(country);
     }
 
-    @GetMapping("/by-merchent")
-    public List<RawTable> getByMerchent(@RequestParam String merchent) {
-        return service.findByMerchentContaining(merchent);
+    @GetMapping("/by-merchant")
+    public List<RawTable> getByMerchant(@RequestParam String merchant) {
+        return service.findByMerchentContaining(merchant);
     }
 
     @GetMapping("/by-date-range")

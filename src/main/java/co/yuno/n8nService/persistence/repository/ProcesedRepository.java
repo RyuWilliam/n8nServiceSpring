@@ -3,6 +3,8 @@ package co.yuno.n8nService.persistence.repository;
 import co.yuno.n8nService.persistence.entity.Processed;
 import co.yuno.n8nService.persistence.enums.Phase;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -33,8 +35,10 @@ public interface ProcesedRepository extends JpaRepository<Processed, Integer> {
     // Contar por proyecto y fase
     long countByProjectNameAndPhase(String projectName, Phase phase);
 
-    // Buscar por merchant ignorando mayúsculas/minúsculas
-    List<Processed> findByMerchantIgnoreCase(String merchant);
+    // Java
+    @Query("SELECT p FROM processed p " +
+            "WHERE LOWER(TRIM(p.merchant)) = LOWER(TRIM(:merchant))")
+    List<Processed> findByMerchantNormalized(@Param("merchant") String merchant);
 
 
     List<Processed> findByMerchantIgnoreCaseAndLastUpdatedBetweenAndPhase(
