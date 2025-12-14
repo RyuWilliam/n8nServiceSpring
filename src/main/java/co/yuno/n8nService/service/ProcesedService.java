@@ -16,12 +16,17 @@ public class ProcesedService {
         this.repository = repository;
     }
 
+    // CRUD
     public Procesed save(Procesed procesed) {
         return repository.save(procesed);
     }
 
     public void deleteById(Integer id) {
         repository.deleteById(id);
+    }
+
+    public boolean existsById(Integer id) {
+        return repository.existsById(id);
     }
 
     public Procesed findById(Integer id) {
@@ -32,6 +37,7 @@ public class ProcesedService {
         return repository.findAll();
     }
 
+    // Búsquedas
     public List<Procesed> findByProjectName(String projectName) {
         return repository.findByProjectName(projectName);
     }

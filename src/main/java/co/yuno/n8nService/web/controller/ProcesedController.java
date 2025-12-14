@@ -3,7 +3,6 @@ package co.yuno.n8nService.web.controller;
 import co.yuno.n8nService.persistence.entity.Procesed;
 import co.yuno.n8nService.persistence.enums.Phase;
 import co.yuno.n8nService.service.ProcesedService;
-import co.yuno.n8nService.service.ProcesedCompareService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,12 +12,9 @@ import java.util.List;
 public class ProcesedController {
 
     private final ProcesedService service;
-    private final ProcesedCompareService compareService;
 
-    public ProcesedController(ProcesedService service,
-                              ProcesedCompareService compareService) {
+    public ProcesedController(ProcesedService service) {
         this.service = service;
-        this.compareService = compareService;
     }
 
     // CRUD básico
@@ -78,11 +74,5 @@ public class ProcesedController {
     @GetMapping("/search-summary")
     public List<Procesed> searchInSummary(@RequestParam String text) {
         return service.searchInSummary(text);
-    }
-
-    // Endpoint para revisar inconsistencias con IA (usa ProcesedCompareService.revisarInconsistenciasSummary)
-    @GetMapping("/check-inconsistencies")
-    public String checkInconsistencies(@RequestParam Integer idProcesed) {
-        return compareService.revisarInconsistenciasSummary(idProcesed);
     }
 }
