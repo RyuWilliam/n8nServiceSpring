@@ -2,6 +2,7 @@ package co.yuno.n8nService.persistence.entity;
 
 import co.yuno.n8nService.persistence.enums.InfoSource;
 import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
 
 @Entity(name = "raw_table")
@@ -26,10 +27,10 @@ public class RawTable {
     @Column(length = 100)
     private String country;
 
-    @ManyToOne
-    @JoinColumn(name = "processed_id")
-    private Processed processed;
-
+    // ELIMINADO: referencia directa a Processed
+    // @ManyToOne
+    // @JoinColumn(name = "processed_id")
+    // private Processed processed;
 
     public Integer getId() {
         return id;

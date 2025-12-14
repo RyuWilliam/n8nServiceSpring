@@ -4,6 +4,7 @@ import co.yuno.n8nService.persistence.entity.Processed;
 import co.yuno.n8nService.persistence.enums.Phase;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface ProcesedRepository extends JpaRepository<Processed, Integer> {
@@ -34,4 +35,12 @@ public interface ProcesedRepository extends JpaRepository<Processed, Integer> {
 
     // Buscar por merchant ignorando mayúsculas/minúsculas
     List<Processed> findByMerchantIgnoreCase(String merchant);
+
+
+    List<Processed> findByMerchantIgnoreCaseAndLastUpdatedBetweenAndPhase(
+            String merchant,
+            LocalDateTime start,
+            LocalDateTime end,
+            Phase phase
+    );
 }

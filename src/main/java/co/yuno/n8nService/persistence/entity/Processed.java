@@ -17,7 +17,6 @@ public class Processed {
     @Column(length = 2000)
     private String summary;
 
-
     @Column(length = 100)
     private String merchant;
 
@@ -36,22 +35,27 @@ public class Processed {
 
     @Column(length = 1000)
     private String risk;
+
     @Column(length = 1000)
     private String legal;
-    @Column(length = 1000)
+
+    @Column(length = 1000, name = "technical")
     private String Technical;
+
     @Column(length = 1000)
     private String commercial;
+
     @LastModifiedDate
     @Column(name = "last_updated")
     private LocalDateTime lastUpdated;
 
-    @OneToMany(mappedBy = "processed",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true)
-    private List<RawTable> rawTables;
+    // NUEVO: relación con la entidad puente
+    @OneToMany(mappedBy = "processed", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ProcessedRaw> processedRaws;
 
-    public Processed(Integer idProcessed, String summary, Phase phase, String projectName, String payment, String risk, String legal, String technical, String commercial, List<RawTable> rawTables) {
+    public Processed(Integer idProcessed, String summary, Phase phase, String projectName,
+                     String payment, String risk, String legal, String technical,
+                     String commercial, List<ProcessedRaw> processedRaws) {
         this.idProcessed = idProcessed;
         this.summary = summary;
         this.phase = phase;
@@ -61,11 +65,13 @@ public class Processed {
         this.legal = legal;
         Technical = technical;
         this.commercial = commercial;
-        this.rawTables = rawTables;
+        this.processedRaws = processedRaws;
     }
 
     public Processed() {
     }
+
+    // getters y setters...
 
     public Integer getIdProcessed() {
         return idProcessed;
@@ -139,14 +145,6 @@ public class Processed {
         this.commercial = commercial;
     }
 
-    public List<RawTable> getRawTables() {
-        return rawTables;
-    }
-
-    public void setRawTables(List<RawTable> rawTables) {
-        this.rawTables = rawTables;
-    }
-
     public String getMerchant() {
         return merchant;
     }
@@ -169,5 +167,13 @@ public class Processed {
 
     public void setLastUpdated(LocalDateTime lastUpdated) {
         this.lastUpdated = lastUpdated;
+    }
+
+    public List<ProcessedRaw> getProcessedRaws() {
+        return processedRaws;
+    }
+
+    public void setProcessedRaws(List<ProcessedRaw> processedRaws) {
+        this.processedRaws = processedRaws;
     }
 }
