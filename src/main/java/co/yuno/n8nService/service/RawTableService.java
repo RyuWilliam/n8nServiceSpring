@@ -46,7 +46,7 @@ public class RawTableService {
     }
 
     public List<RawTable> findByMerchentContaining(String merchent) {
-        return repository.findByMerchentContainingIgnoreCase(merchent);
+        return repository.findByMerchantContainingIgnoreCase(merchent);
     }
 
     public List<RawTable> findByDateBetween(LocalDateTime start, LocalDateTime end) {

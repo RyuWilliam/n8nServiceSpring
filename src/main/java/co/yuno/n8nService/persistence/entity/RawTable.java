@@ -1,28 +1,35 @@
 package co.yuno.n8nService.persistence.entity;
 
-
 import co.yuno.n8nService.persistence.enums.InfoSource;
 import jakarta.persistence.*;
-
 import java.time.LocalDateTime;
 
 @Entity(name = "raw_table")
 public class RawTable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private String source;
+    private InfoSource source;
 
-    private String merchent;
+    @Column(length = 100)
+    private String merchant;
 
-    @Column(length = 10000) // aumenta el límite
+    @Column(length = 10000)
     private String snippet;
 
     private LocalDateTime date;
 
-    private String Country;
+    @Column(length = 100)
+    private String country;
+
+    @ManyToOne
+    @JoinColumn(name = "processed_id")
+    private Processed processed;
+
 
     public Integer getId() {
         return id;
@@ -32,20 +39,20 @@ public class RawTable {
         this.id = id;
     }
 
-    public String getSource() {
+    public InfoSource getSource() {
         return source;
     }
 
-    public void setSource(String source) {
+    public void setSource(InfoSource source) {
         this.source = source;
     }
 
-    public String getMerchent() {
-        return merchent;
+    public String getMerchant() {
+        return merchant;
     }
 
-    public void setMerchent(String merchent) {
-        this.merchent = merchent;
+    public void setMerchant(String merchant) {
+        this.merchant = merchant;
     }
 
     public String getSnippet() {
@@ -65,10 +72,10 @@ public class RawTable {
     }
 
     public String getCountry() {
-        return Country;
+        return country;
     }
 
     public void setCountry(String country) {
-        Country = country;
+        this.country = country;
     }
 }

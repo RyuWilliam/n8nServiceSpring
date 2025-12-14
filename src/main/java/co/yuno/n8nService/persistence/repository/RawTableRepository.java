@@ -15,27 +15,15 @@ public interface RawTableRepository extends JpaRepository<RawTable, Integer> {
     // Buscar por país (ignorando mayúsculas/minúsculas)
     List<RawTable> findByCountryIgnoreCase(String country);
 
-    // Buscar por merchent exacto
-    List<RawTable> findByMerchent(String merchent);
+    // Buscar por merchant exacto
+    List<RawTable> findByMerchant(String merchant);
 
-    // Buscar por merchent que contenga texto (like %texto%)
-    List<RawTable> findByMerchentContainingIgnoreCase(String merchent);
+    // Buscar por merchant que contenga texto (like %texto%)
+    List<RawTable> findByMerchantContainingIgnoreCase(String merchant);
 
     // Buscar por rango de fechas
     List<RawTable> findByDateBetween(LocalDateTime start, LocalDateTime end);
 
-    // Buscar por source y país
-    List<RawTable> findBySourceAndCountryIgnoreCase(InfoSource source, String country);
-
-    // Buscar por snippet que contenga texto
-    List<RawTable> findBySnippetContainingIgnoreCase(String text);
-
-    // Contar por source
-    long countBySource(InfoSource source);
-
-    // Contar por país
-    long countByCountryIgnoreCase(String country);
-
-    // Traer últimos N registros por fecha (paginable, usar Pageable en el service/controller)
+    // Traer últimos N registros por fecha y país (usando Pageable en el service/controller)
     List<RawTable> findByCountryIgnoreCaseOrderByDateDesc(String country);
 }

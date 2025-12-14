@@ -1,6 +1,6 @@
 package co.yuno.n8nService.web.controller;
 
-import co.yuno.n8nService.persistence.entity.Procesed;
+import co.yuno.n8nService.persistence.entity.Processed;
 import co.yuno.n8nService.persistence.enums.Phase;
 import co.yuno.n8nService.service.ProcesedService;
 import org.springframework.web.bind.annotation.*;
@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/procesed")
+@RequestMapping("/processed")
 public class ProcesedController {
 
     private final ProcesedService service;
@@ -19,23 +19,17 @@ public class ProcesedController {
 
     // CRUD básico
     @GetMapping("/{id}")
-    public Procesed getById(@PathVariable Integer id) {
+    public Processed getById(@PathVariable Integer id) {
         return service.findById(id);
     }
 
     @GetMapping
-    public List<Procesed> getAll() {
+    public List<Processed> getAll() {
         return service.findAll();
     }
 
     @PostMapping
-    public Procesed create(@RequestBody Procesed procesed) {
-        return service.save(procesed);
-    }
-
-    @PutMapping("/{id}")
-    public Procesed update(@PathVariable Integer id, @RequestBody Procesed procesed) {
-        procesed.setIdProcesed(id);
+    public Processed create(@RequestBody Processed procesed) {
         return service.save(procesed);
     }
 
@@ -46,33 +40,39 @@ public class ProcesedController {
 
     // Búsquedas
     @GetMapping("/by-project")
-    public List<Procesed> getByProject(@RequestParam String projectName) {
+    public List<Processed> getByProject(@RequestParam String projectName) {
         return service.findByProjectName(projectName);
     }
 
     @GetMapping("/history-asc")
-    public List<Procesed> getHistoryAsc(@RequestParam String projectName) {
+    public List<Processed> getHistoryAsc(@RequestParam String projectName) {
         return service.findHistoryAsc(projectName);
     }
 
     @GetMapping("/history-desc")
-    public List<Procesed> getHistoryDesc(@RequestParam String projectName) {
+    public List<Processed> getHistoryDesc(@RequestParam String projectName) {
         return service.findHistoryDesc(projectName);
     }
 
     @GetMapping("/by-phase")
-    public List<Procesed> getByPhase(@RequestParam Phase phase) {
+    public List<Processed> getByPhase(@RequestParam Phase phase) {
         return service.findByPhase(phase);
     }
 
     @GetMapping("/by-project-and-phase")
-    public List<Procesed> getByProjectAndPhase(@RequestParam String projectName,
-                                               @RequestParam Phase phase) {
+    public List<Processed> getByProjectAndPhase(@RequestParam String projectName,
+                                                @RequestParam Phase phase) {
         return service.findByProjectAndPhase(projectName, phase);
     }
 
     @GetMapping("/search-summary")
-    public List<Procesed> searchInSummary(@RequestParam String text) {
+    public List<Processed> searchInSummary(@RequestParam String text) {
         return service.searchInSummary(text);
+    }
+
+    // Nuevo: buscar por merchant ignorando mayúsculas/minúsculas
+    @GetMapping("/by-merchant")
+    public List<Processed> getByMerchantIgnoreCase(@RequestParam String merchant) {
+        return service.findByMerchantIgnoreCase(merchant);
     }
 }

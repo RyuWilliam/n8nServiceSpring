@@ -1,6 +1,6 @@
 package co.yuno.n8nService.service;
 
-import co.yuno.n8nService.persistence.entity.Procesed;
+import co.yuno.n8nService.persistence.entity.Processed;
 import co.yuno.n8nService.persistence.enums.Phase;
 import co.yuno.n8nService.persistence.repository.ProcesedRepository;
 import org.springframework.stereotype.Service;
@@ -16,8 +16,7 @@ public class ProcesedService {
         this.repository = repository;
     }
 
-    // CRUD
-    public Procesed save(Procesed procesed) {
+    public Processed save(Processed procesed) {
         return repository.save(procesed);
     }
 
@@ -29,36 +28,35 @@ public class ProcesedService {
         return repository.existsById(id);
     }
 
-    public Procesed findById(Integer id) {
+    public Processed findById(Integer id) {
         return repository.findById(id).orElse(null);
     }
 
-    public List<Procesed> findAll() {
+    public List<Processed> findAll() {
         return repository.findAll();
     }
 
-    // Búsquedas
-    public List<Procesed> findByProjectName(String projectName) {
+    public List<Processed> findByProjectName(String projectName) {
         return repository.findByProjectName(projectName);
     }
 
-    public List<Procesed> findHistoryAsc(String projectName) {
-        return repository.findByProjectNameOrderByIdProcesedAsc(projectName);
+    public List<Processed> findHistoryAsc(String projectName) {
+        return repository.findByProjectNameOrderByIdProcessedAsc(projectName);
     }
 
-    public List<Procesed> findHistoryDesc(String projectName) {
-        return repository.findByProjectNameOrderByIdProcesedDesc(projectName);
+    public List<Processed> findHistoryDesc(String projectName) {
+        return repository.findByProjectNameOrderByIdProcessedDesc(projectName);
     }
 
-    public List<Procesed> findByPhase(Phase phase) {
+    public List<Processed> findByPhase(Phase phase) {
         return repository.findByPhase(phase);
     }
 
-    public List<Procesed> findByProjectAndPhase(String projectName, Phase phase) {
+    public List<Processed> findByProjectAndPhase(String projectName, Phase phase) {
         return repository.findByProjectNameAndPhase(projectName, phase);
     }
 
-    public List<Procesed> searchInSummary(String text) {
+    public List<Processed> searchInSummary(String text) {
         return repository.findBySummaryContainingIgnoreCase(text);
     }
 
@@ -68,5 +66,10 @@ public class ProcesedService {
 
     public long countByProjectNameAndPhase(String projectName, Phase phase) {
         return repository.countByProjectNameAndPhase(projectName, phase);
+    }
+
+    // Nuevo: implementación de búsqueda por merchant ignore case
+    public List<Processed> findByMerchantIgnoreCase(String merchant) {
+        return repository.findByMerchantIgnoreCase(merchant);
     }
 }
