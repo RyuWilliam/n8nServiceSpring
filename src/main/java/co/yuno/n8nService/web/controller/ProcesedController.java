@@ -89,7 +89,7 @@ public class ProcesedController {
         return service.findByMerchantIgnoreCase(merchant);
     }
 
-    @PatchMapping("/{id}")
+    @PutMapping("/{id}")
     public Processed partialUpdate(
             @PathVariable Integer id,
             @RequestBody ProcessedUpdateRequest request
